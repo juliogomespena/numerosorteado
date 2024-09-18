@@ -4,6 +4,7 @@
 
 //Variáveis globais
 int numero01, numero02, numeroSorteado, limiteTentativas;
+double pontos;
 int acertou = 0;
 
 void OpcoesDoJogo()
@@ -56,6 +57,7 @@ void OpcoesDoJogo()
 				}
 				else
 				{
+					pontos = (numero02 - numero01) * limiteTentativas * 10;
 					break;
 				}
 			}
@@ -81,16 +83,29 @@ void ChutarNumero(int numeroSorteado)
 	int numeroDigitado;
 	int tentativa = 1;
 
-	//Loop para permitir tentativas infinitas de chute" até acertar
+	//Loop para permitir tentativas definidas de chute
 	while(tentativa <= limiteTentativas)
 	{
+		if (pontos <= 0)
+		{
+			printf_s("Voce nao tem mais pontos para continuar!\n");
+			printf_s("***********************************************************************\n\n\n");
+			break;
+		}
+
+		//Exibe a pontuação atual e a tentativa atual
+		printf_s("Pontuacao atual: %.2f\n", pontos);
 		printf_s("Tentativa %d de %d\n", tentativa, limiteTentativas);
+
 		//Lê o número digitado
+		printf_s("Chute: ");
 		scanf_s("%d", &numeroDigitado);
 
+		//Verifica se o número digitado está dentro do intervalo
 		if (numeroDigitado < numero01 || numeroDigitado > numero02)
 		{
-			printf_s("O numero digitado deve estar entre %d e %d.\nVou te dar uma tentativa extra!\n\n", numero01, numero02);
+			printf_s("O numero digitado deve estar entre %d e %d.\nVou te dar uma tentativa extra!\n", numero01, numero02);
+			printf_s("***********************************************************************\n\n\n");
 			continue;
 		}
 
@@ -104,13 +119,20 @@ void ChutarNumero(int numeroSorteado)
 		//Verifica se o número digitado é maior que numero sorteado
 		else if (numeroDigitado > numeroSorteado)
 		{
-			printf_s("O numero sorteado e menor que o numero digitado!\n\n");
+			printf_s("O numero sorteado e menor que o numero digitado!\n");
 		}
 		//Verifica se o número digitado é menor que o numero sorteado
 		else
 		{
-			printf_s("O numero sorteado e maior que o numero digitado!\n\n");
+			printf_s("O numero sorteado e maior que o numero digitado!\n");
 		}
+
+		//Diminui a pontuação do jogador
+		double pontosPerdidos = abs(numeroSorteado - numeroDigitado) * ((numero02 - numero01) / (double)limiteTentativas);
+		pontos = pontos - pontosPerdidos;
+		printf_s("Voce perdeu %.2f pontos!\n", pontosPerdidos);
+
+		printf_s("***********************************************************************\n\n\n");
 
 		tentativa++;
 	}
