@@ -2,26 +2,14 @@
 #include <stdlib.h>
 #include <Windows.h>
 
-int main()
+//Variáveis globais
+#define NUMERO_DE_TENTATIVAS 5
+int numero01, numero02;
+
+int GerarNumeroSorteado()
 {
 	//Declaração de variáveis
-	int numero01, numero02;
-	int numeroDigitado;
 	int numeroSorteado;
-
-	//Exibindo título do jogo
-	printf_s("*********************************************\n");
-	printf_s("*** Bem vindo ao jogo do numero sorteado! ***\n");
-	printf_s("*********************************************\n");
-	printf_s("\n\n");
-
-	Sleep(1500);
-
-	printf_s("Vamos primeiro escolher o intervalo de nosso numero sorteado!\n");
-
-	Sleep(4000);
-
-	system("cls");
 
 	//Loop para verificação do intervalo de números
 	while (1)
@@ -61,13 +49,19 @@ int main()
 
 	//Gerar numero aleatorio entre numero01 e numero02
 	numeroSorteado = rand() % (numero02 + 1 - numero01) + numero01;
+	return numeroSorteado;
+}
 
-	//Mensagem para chutar número
-	printf_s("Tente acertar o numero entre %d e %d.\n", numero01, numero02);
+void ChutarNumero(int numeroSorteado)
+{
+	//Declaração de variáveis
+	int numeroDigitado;
 
-	//Loop para permitir tentativas infinitas de chute até acertar
-	while (1)
+	//Loop para permitir tentativas infinitas de chute" até acertar
+	for (int i = 1; i <= NUMERO_DE_TENTATIVAS; i++)
 	{
+
+		printf_s("Tentativa %d de %d\n", i, NUMERO_DE_TENTATIVAS);
 		//Lê o número digitado
 		scanf_s("%d", &numeroDigitado);
 
@@ -88,6 +82,35 @@ int main()
 			printf_s("O numero sorteado e maior que o numero digitado!\n\n");
 		}
 	}
+	return;
+}
+
+int main()
+{
+	int numeroSorteado;
+
+	//Exibindo título do jogo
+	printf_s("*********************************************\n");
+	printf_s("*** Bem vindo ao jogo do numero sorteado! ***\n");
+	printf_s("*********************************************\n");
+	printf_s("\n\n");
+
+	Sleep(1500);
+
+	printf_s("Vamos primeiro escolher o intervalo de nosso numero sorteado!\n");
+
+	Sleep(4000);
+
+	system("cls");
+
+	numeroSorteado = GerarNumeroSorteado();
+
+	//Mensagem para chutar número
+	printf_s("**********************************************\n");
+	printf_s("*****Tente acertar o numero entre %d e %d*****\n", numero01, numero02);
+	printf_s("**********************************************\n\n");
+
+	ChutarNumero(numeroSorteado);
 
 	return 0;
 }
