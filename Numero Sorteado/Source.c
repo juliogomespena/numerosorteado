@@ -43,9 +43,11 @@ void OpcoesDoJogo()
 			//Define o número de tentativas
 			while (1)
 			{
+				//Solicita e armazena o número de tentativas
 				printf_s("Quantas tentativas deseja ter?\n");
 				scanf_s("%d", &limiteTentativas);
 
+				//Verifica se o número de tentativas é maior que 0
 				if (limiteTentativas <= 0)
 				{
 					printf_s("O numero de tentativas deve ser maior que 0!\n");
@@ -132,6 +134,7 @@ int main()
 
 	system("cls");
 
+	//Chama a função que define as opcoes do jogo
 	OpcoesDoJogo();
 
 	//Mensagem para chutar número
@@ -139,16 +142,20 @@ int main()
 	printf_s("******Tente acertar o numero entre %d e %d******\n", numero01, numero02);
 	printf_s("**********************************************\n\n");
 
+	//Chama a função que permite o jogador chutar o número
 	ChutarNumero(numeroSorteado);
 
+	//Verifica se o jogador acertou o número sorteado
 	if (acertou)
 	{
+		//Mensagem de parabéns
 		printf_s("\n\n***************************************************\n");
 		printf_s("*****Parabens! Voce acertou o numero sorteado!*****\n");
 		printf_s("***************************************************\n");
 	}
 	else
 	{
+		//Mensagem de que o jogador não acertou
 		printf_s("Voce nao acertou o numero sorteado!\n");
 		printf_s("O numero sorteado era: %d\n", numeroSorteado);
 	}
